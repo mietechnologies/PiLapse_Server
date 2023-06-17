@@ -1,0 +1,23 @@
+{
+  "name": "pilapse-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mietechnologies/PiLapse_Server.git"
+  },
+  "author": "Brett C.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mietechnologies/PiLapse_Server/issues"
+  },
+  "homepage": "https://github.com/mietechnologies/PiLapse_Server#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}

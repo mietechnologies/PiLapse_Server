@@ -9,8 +9,8 @@ const compression = require('compression');
 const app = express();
 
 const AppError = require('./utils/appError');
+const userRouter = require('./routes/userRoutes');
 const globalErrorHandler = require('./controllers/errorController');
-const locationRouter = require('./routes/locationRoutes');
 
 // MIDDLEWARE
 
@@ -29,7 +29,7 @@ const limiter = rateLimit({
 app.use('*', limiter);
 
 app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoed({ extended: true, limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 app.use(mongoSanitize());
 
@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 
 // ROUTES
 
-// app.use('/api/v1/locations', locationRouter);
+app.use('/', userRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

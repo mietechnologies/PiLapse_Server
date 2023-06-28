@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 
 // ROUTES
 
-app.use('/', userRouter);
+app.use('/user', userRouter);
 app.use('/pi', piRouter);
 
 app.all('*', (req, res, next) => {

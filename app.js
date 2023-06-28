@@ -10,6 +10,7 @@ const app = express();
 
 const AppError = require('./utils/appError');
 const userRouter = require('./routes/userRoutes');
+const piRouter = require('./routes/piRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 
 // MIDDLEWARE
@@ -44,7 +45,8 @@ app.use((req, res, next) => {
 
 // ROUTES
 
-app.use('/', userRouter);
+app.use('/user', userRouter);
+app.use('/pi', piRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

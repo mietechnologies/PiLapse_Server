@@ -41,6 +41,10 @@ const piSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'A Pi must belong to a user.'],
   },
+  model: {
+    type: String,
+    required: [true, 'A Pi must have a model.'],
+  },
 });
 
 const Pi = mongoose.model('Pi', piSchema);

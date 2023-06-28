@@ -1,6 +1,7 @@
 const Pi = require('../models/piModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const factory = require('../utils/handlerFactory');
 
 exports.add = catchAsync(async (req, res, next) => {
   const newPi = await Pi.create(req.body);
@@ -12,3 +13,5 @@ exports.add = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.getPi = factory.getOne(Pi);

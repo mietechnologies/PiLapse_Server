@@ -46,6 +46,7 @@ exports.addPhoto = catchAsync(async (req, res, next) => {
   const photos = await features.query;
   req.body.photoNumber = photos.length + 1;
   req.body.piId = req.params.id;
+  req.body.userId = req.user._id;
 
   const photo = await Photo.create(req.body);
 

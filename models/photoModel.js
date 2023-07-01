@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Pi = require('./piModel');
+const User = require('./userModel');
 
 const photoSchema = new mongoose.Schema({
   image: String,
@@ -14,8 +15,13 @@ const photoSchema = new mongoose.Schema({
   },
   piId: {
     type: mongoose.Schema.Types.ObjectId,
-    red: Pi,
+    ref: Pi,
     required: [true, 'A photo must be associated with a Pi.'],
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: User,
+    require: [true, 'A photo must belong to a user.'],
   },
 });
 

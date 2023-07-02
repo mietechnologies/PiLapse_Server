@@ -22,12 +22,15 @@ app.use(express.json());
 
 app.use(helmet());
 
-const limiter = rateLimit({
-  max: 10,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!',
-});
-app.use('*', limiter);
+if (process.env.NODE_ENV === 'production') {
+  const limiter = rateLimit({
+    max: 25,
+    windowMs: 20 * 60 * 1000,
+    message:
+      'There have been too many requests from this IP. Please try your request later.',
+  });
+  app.use('*', limiter);
+}
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));

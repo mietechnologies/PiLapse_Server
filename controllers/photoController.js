@@ -3,6 +3,7 @@ const path = require('path');
 const multer = require('multer');
 const sharp = require('sharp');
 const Photo = require('../models/photoModel');
+const Pi = require('../models/piModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const factory = require('../utils/handlerFactory');
@@ -14,7 +15,7 @@ const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
-    cb(new AppError('Not an image! Please upload images only.', 400), false);
+    cb(new AppError('Not an image! Please upload images only.', 415), false);
   }
 };
 
@@ -26,13 +27,17 @@ const upload = multer({
 exports.uploadPhotos = upload.fields([{ name: 'image', maxCount: 1 }]);
 
 exports.resizeImages = catchAsync(async (req, res, next) => {
-  if (!req.files.image) return next();
+  if (!req.files.image) return next(new AppError('No image provided.', 406));
+  const query = Pi.findById(req.params.id);
+  const pi = await query;
   const dir = `public/photos/${req.params.id}`;
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  req.body.image = `${Date.now()}.jpeg`;
+  req.body.image = `${pi.location.coordinates[0]}|${
+    pi.location.coordinates[1]
+  }-${Date.now()}.jpeg`;
   await sharp(req.files.image[0].buffer)
     .toFormat('jpeg')
     .jpeg({ quality: 100 })
@@ -79,7 +84,6 @@ exports.getPhotos = catchAsync(async (req, res, next) => {
 });
 
 exports.getPhoto = catchAsync(async (req, res, next) => {
-  console.log(__dirname);
   const dir = `public/photos/${req.params.id}/${req.params.file}`;
   if (!fs.existsSync(dir)) {
     return next(

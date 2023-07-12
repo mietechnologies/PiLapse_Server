@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -5,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
+const pug = require('pug');
 
 const app = express();
 
@@ -21,6 +23,10 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 app.use(helmet());
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 if (process.env.NODE_ENV === 'production') {
   const limiter = rateLimit({

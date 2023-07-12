@@ -1,0 +1,16 @@
+extends baseEmail
+
+block content
+  h1 Hi #{firstName},
+  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quam augue, iaculis molestie nibh in, blandit efficitur neque. Mauris sed condimentum leo. Quisque semper vitae mi a egestas. Mauris ultrices sit amet enim et sodales. Praesent eu venenatis urna. Nam viverra vulputate erat vitae sodales. Nullam viverra neque eu augue rhoncus euismod. Donec tempor tempus ligula, ullamcorper scelerisque urna pretium nec. 
+  p Nam pharetra tortor in libero mattis vehicula ut vitae nunc. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus euismod dignissim pharetra. Nam felis eros, efficitur non pellentesque sit amet, faucibus ac quam. Sed sed lectus vel arcu efficitur pretium id at nulla. Sed ultricies arcu quis risus pharetra venenatis. Maecenas convallis consectetur risus a pulvinar. Sed eu eros quam. Etiam vel nisl blandit, eleifend nibh in, lacinia lacus. In suscipit felis sit amet dapibus venenatis. Duis laoreet hendrerit lorem vitae cursus.
+  p Donec a erat at dui dapibus maximus nec quis arcu. In hac habitasse platea dictumst. Aliquam elementum faucibus velit, eu pharetra nunc hendrerit vitae. Nunc non laoreet lacus, ut mattis est. Praesent dignissim dui vitae dignissim maximus. Etiam mattis nibh purus, vel finibus sapien vulputate ut. Nunc a dapibus magna. Cras nec porttitor velit. Mauris congue et nunc quis consequat.
+  p Fusce sed maximus elit. Maecenas gravida consequat iaculis. Curabitur metus libero, suscipit a mauris non, consectetur ullamcorper quam. Nulla lacus mauris, suscipit eu bibendum at, hendrerit sit amet ligula. Praesent facilisis magna sit amet orci accumsan, eget tincidunt ligula pretium. Sed iaculis eros malesuada eros volutpat, ac sollicitudin sem facilisis. Morbi tempus eros risus, vel accumsan sem imperdiet lacinia. Nam pharetra nunc quis blandit accumsan. Nullam lacinia sed diam eleifend finibus. Donec dui lacus, accumsan ac volutpat et, efficitur sit amet nulla. Proin nec massa eu metus vehicula dapibus vel in orci.
+  p Mauris condimentum, sapien ut tempor auctor, arcu odio vulputate tortor, a mollis lorem mi sed ex. Sed dictum nisl ac augue vulputate, a tempus nisl porttitor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus eget diam feugiat, interdum sem in, vehicula elit. Morbi ac nulla sed lorem varius vulputate a non ante. Suspendisse non facilisis felis. Maecenas nisl lacus, maximus ac ultrices non, ultricies ut orci. Quisque arcu ante, gravida eu egestas pellentesque, aliquam eu diam. Vivamus consequat tempus risus, sit amet lobortis dui accumsan ut. Donec eget mi feugiat, viverra felis at, dignissim ligula. Suspendisse elementum tempor dictum. Pellentesque turpis ex, porta sed condimentum et, aliquam a enim. Aliquam at nibh gravida lacus egestas tincidunt. Mauris blandit porta purus, vel semper nibh. Vestibulum fringilla erat non quam maximus scelerisque.
+
+  grid-container
+      each photo in photos 
+        grid-item
+            img(src=photo, alt="Test")
+
+  p If you didn't forget your password, please ignore this email!

@@ -36,9 +36,8 @@ exports.resizeImages = catchAsync(async (req, res, next) => {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  req.body.image = `${pi.location.coordinates[0]}|${
-    pi.location.coordinates[1]
-  }-${Date.now()}.jpeg`;
+  req.body.image = `${Date.now()}.jpeg`;
+
   await sharp(req.files.image[0].buffer)
     .toFormat('jpeg')
     .jpeg({ quality: 100 })
@@ -92,7 +91,7 @@ exports.getPhoto = catchAsync(async (req, res, next) => {
     );
   }
 
-  res.status(200).sendFile(path.join(__dirname, '../', dir));
+  res.status(200).sendFile(dir);
 });
 
 exports.getPhotos = factory.getAll(Photo);

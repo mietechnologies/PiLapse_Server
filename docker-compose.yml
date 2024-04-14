@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: PiLapseMongoDB
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: SuperPassword1234!
+      MONGO_INITDB_DATABASE: directory
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  node_app:
+    build: .
+    container_name: PiLapseServer
+    ports:
+      - 3000:3000
+    environment:
+      MONGO_URI: mongodb://mietech:12302020@PiLapseMongoDB:27017/directory
+      PHOTOS_DIRECTORY: /app/uploads
+      PORT: 3000
+    volumes:
+      - app_data:/app/uploads
+
+volumes:
+  mongodb_data:
+  app_data:

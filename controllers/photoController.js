@@ -10,6 +10,7 @@ const factory = require('../utils/handlerFactory');
 const APIFeatures = require('../utils/apiFeatures');
 
 const multerStorage = multer.memoryStorage();
+const appData = process.env.PHOTOS_DIRECTORY;
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
@@ -30,7 +31,7 @@ exports.resizeImages = catchAsync(async (req, res, next) => {
   if (!req.files.image) return next(new AppError('No image provided.', 406));
   const query = Pi.findById(req.params.id);
   const pi = await query;
-  const dir = `public/photos/${req.params.id}`;
+  const dir = `${appData}/${req.params.id}`;
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
@@ -84,7 +85,7 @@ exports.getPhotos = catchAsync(async (req, res, next) => {
 });
 
 exports.getPhoto = catchAsync(async (req, res, next) => {
-  const dir = `public/photos/${req.params.id}/${req.params.file}`;
+  const dir = `${appData}/${req.params.id}/${req.params.file}`;
   if (!fs.existsSync(dir)) {
     return next(
       new AppError(`Photo for file ${req.params.file} doesn't exists.`, 404)

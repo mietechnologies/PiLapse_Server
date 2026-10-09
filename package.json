@@ -1,11 +1,13 @@
 {
   "name": "pilapse-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Self-hosted server that collects photos from PiLapse cameras.",
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon server.js",
-    "start:prod": "NODE_ENV=production node server.js"
+    "start:prod": "NODE_ENV=production node server.js",
+    "test": "jest --runInBand",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -35,7 +37,20 @@
   },
   "devDependencies": {
     "eslint": "^8.43.0",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.4.3",
     "nodemon": "^1.14.9",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "supertest": "^7.3.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "testTimeout": 30000
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

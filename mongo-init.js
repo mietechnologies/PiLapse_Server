@@ -1,12 +1,11 @@
-db.createUser(
+// Runs once, when the database volume is first created.
+db.createUser({
+  user: process.env.MONGO_APP_USERNAME,
+  pwd: process.env.MONGO_APP_PASSWORD,
+  roles: [
     {
-        user: "mietech",
-        pwd: "12302020",
-        roles: [
-            {
-                role: "readWrite",
-                db: "directory"
-            }
-        ]
-    }
-)
+      role: 'readWrite',
+      db: process.env.MONGO_INITDB_DATABASE,
+    },
+  ],
+});

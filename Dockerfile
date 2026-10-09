@@ -1,22 +1,21 @@
 # syntax=docker/dockerfile:1
 
-# Use an official Node.js runtime as the base image
-FROM node:21-alpine
+FROM node:22-alpine
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+ENV NODE_ENV=production
+WORKDIR /app
 
-# Copy package.json and package-lock.json (if available)
 COPY package*.json ./
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Copy the rest of the application code
 COPY . .
 
-# Install dependencies
-RUN npm install
+RUN mkdir -p /app/uploads && chown node:node /app/uploads
+USER node
 
-# Command to run the application
-CMD ["node", "server.js"]
-
-# Expose port 8000
 EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s \
+  CMD wget -qO- http://127.0.0.1:3000/api/v1/info > /dev/null || exit 1
+
+CMD ["node", "server.js"]
